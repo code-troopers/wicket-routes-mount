@@ -1,4 +1,4 @@
-# Wicket Routes Mount
+# Wicket Routes Mount [![Build Status](https://buildhive.cloudbees.com/job/code-troopers/job/wicket-routes-mount/badge/icon)](https://buildhive.cloudbees.com/job/code-troopers/job/wicket-routes-mount/)
 
 [Apache Wicket](http://wicket.apache.org) is a Java Web framework providing clean separation between markup and logic.
 
@@ -16,7 +16,7 @@ Add the following Maven dependency (not yet on central)
 
 Then you will need to write your mounts in a `routes.conf` located at the root of your sources (typically `src/main/resources/routes.conf`)
  
-The content of your file must look like the following (standard Wicket mount syntax applies : ${requiredParam} #{optionalParam}) : 
+The content of your file must look like the following (standard Wicket mount syntax applies : `${requiredParam}` `#{optionalParam}`) : 
 
     # mountPoint            class                           roles
     /home                   codetroopers.HomePage           
@@ -40,6 +40,8 @@ https://github.com/code-troopers/wicket-routes-mount/issues
 # Special notes
 
 The implementation provided here is open for pull request or further integration into WicketStuff.
+
+Thanks to Cloudbees buildhive for providing a free Jenkins instance.
 
 # Copyright and license
 
