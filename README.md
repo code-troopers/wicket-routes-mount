@@ -6,7 +6,7 @@ This project allows to group page mounting in a single file. It also permits to 
 
 # Setup on your project
 
-Add the following Maven dependency (not yet on central)
+Add the following Maven dependency (available on Maven Central)
 
     <dependency>
         <groupId>com.code-troopers</groupId>
