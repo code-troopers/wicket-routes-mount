@@ -68,7 +68,7 @@ public class RoutesMountParser {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.startsWith("#")) {
+                if (!line.startsWith("#") && line.trim().length() > 0) {
                     final Matcher matcher = routePattern.matcher(line);
                     if (matcher.matches()) {
                         try {
@@ -78,7 +78,7 @@ public class RoutesMountParser {
                             }
                             mapping.add(pageMapping);
                         } catch (ClassNotFoundException e) {
-                            LOGGER.error("Unable to parse line : {}", line);
+                            LOGGER.error("Unable to parse line (ClassNotFound) : {}", line);
                         } catch (IllegalArgumentException e) {
                             LOGGER.error("Unable to mount page : '{}'", e.getMessage());
                         }

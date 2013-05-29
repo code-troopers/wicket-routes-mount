@@ -45,6 +45,13 @@ public class RoutesMountParserTest {
                 routesMountParser.parseFile("routes_ignore_comments.conf");
         Assert.assertEquals(2, urlPageMappings.size());
     }
+    
+    @Test
+    public void testParsingTwoRoutes_ignoringEmptyLines() throws IOException {
+        final List<RoutesMountParser.URLPageMapping> urlPageMappings =
+                routesMountParser.parseFile("routes_ignore_empty_lines.conf");
+        Assert.assertEquals(2, urlPageMappings.size());
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParsing_NoFile() throws IOException {
