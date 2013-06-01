@@ -25,7 +25,10 @@ import codetroopers.wicket.web.routes.mapper.ParamCheckingPatternMapper;
 import codetroopers.wicket.web.routes.mounts.MountPathExtractor;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
+import org.apache.wicket.core.request.mapper.PackageMapper;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.mapper.mount.MountMapper;
+import org.apache.wicket.util.lang.PackageName;
 import org.apache.wicket.util.string.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,23 +103,44 @@ public class RoutesMountParser {
     static class URLPageMapping {
         private final List<String> roles;
         private final String mountPoint;
-        private final Class<? extends Page> clazz;
+        private Class<? extends Page> clazz;
+        private PackageName packageName;
 
         public URLPageMapping(final String mountPoint, final String clazzName) throws ClassNotFoundException {
             this.mountPoint = mountPoint;
-            final Class<?> aClass = Class.forName(clazzName);
-            if (!Page.class.isAssignableFrom(aClass)) {
-                throw new IllegalArgumentException(clazzName + " is not a wicket Page !");
-            } else {
-                this.clazz = (Class<? extends Page>) aClass;
+            try {
+                final Class<?> aClass = Class.forName(clazzName);
+                if (!Page.class.isAssignableFrom(aClass)) {
+                    throw new IllegalArgumentException(clazzName + " is not a wicket Page !");
+                } else {
+                    this.clazz = (Class<? extends Page>) aClass;
+                    this.packageName = null;
+                }
+            } catch (ClassNotFoundException e) {
+                this.clazz = null;
+                final Package aPackage = Package.getPackage(clazzName);
+                if (aPackage != null) {
+                    packageName = PackageName.forPackage(aPackage);
+                }
+            }
+            if (packageName == null && clazz == null){
+                throw new ClassNotFoundException();
             }
             this.roles = new ArrayList<>();
         }
 
         public void mount(WebApplication application) {
+            if (this.clazz != null) {
+                mountPage(application);
+            }else if (this.packageName != null){
+                application.mount(new MountMapper(mountPoint, new PackageMapper(packageName)));
+            }
+        }
+
+        private void mountPage(final WebApplication application) {
             final MountPathExtractor extractor = new MountPathExtractor(mountPoint);
-            application.mount(new ParamCheckingPatternMapper(extractor.getPath(), 
-                                                             clazz, 
+            application.mount(new ParamCheckingPatternMapper(extractor.getPath(),
+                                                             clazz,
                                                              extractor.getParameters()));
             for (String role : roles) {
                 MetaDataRoleAuthorizationStrategy.authorize(clazz, role);

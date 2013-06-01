@@ -74,4 +74,12 @@ public class RoutesMountParserTest {
                             4, fourRolesMapping.getRoles().size());
 
     }
+
+    @Test
+    public void testParsingPackage() throws IOException {
+        final List<RoutesMountParser.URLPageMapping> urlPageMappings =
+                routesMountParser.parseFile("routes_package.conf");
+        Assert.assertEquals(1, urlPageMappings.size());
+    }
+
 }
