@@ -22,6 +22,7 @@
 package codetroopers.wicket.web.routes;
 
 import codetroopers.wicket.web.routes.mapper.ParamCheckingPatternMapper;
+import codetroopers.wicket.web.routes.mounts.MountPathExtractor;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -113,7 +114,10 @@ public class RoutesMountParser {
         }
 
         public void mount(WebApplication application) {
-            application.mountPage(mountPoint, clazz);
+            final MountPathExtractor extractor = new MountPathExtractor(mountPoint);
+            application.mount(new ParamCheckingPatternMapper(extractor.getPath(), 
+                                                             clazz, 
+                                                             extractor.getParameters()));
             for (String role : roles) {
                 MetaDataRoleAuthorizationStrategy.authorize(clazz, role);
             }

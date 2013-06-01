@@ -1,4 +1,4 @@
-package codetroopers.wicket.web.routes;
+package codetroopers.wicket.web.routes.mounts;
 
 import org.junit.Assert;
 import org.junit.Before;

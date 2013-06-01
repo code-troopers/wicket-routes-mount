@@ -19,7 +19,7 @@
  * under the License.
  */
 
-package codetroopers.wicket.web.routes;
+package codetroopers.wicket.web.routes.mounts;
 
 /**
  * @author cgatay

@@ -21,7 +21,7 @@
 
 package codetroopers.wicket.web.routes.mapper;
 
-import codetroopers.wicket.web.routes.MountParameter;
+import codetroopers.wicket.web.routes.mounts.MountParameter;
 import org.apache.wicket.core.request.mapper.MountedMapper;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Url;

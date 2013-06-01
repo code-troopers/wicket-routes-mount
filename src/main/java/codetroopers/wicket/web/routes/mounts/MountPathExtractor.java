@@ -19,7 +19,7 @@
  * under the License.
  */
 
-package codetroopers.wicket.web.routes;
+package codetroopers.wicket.web.routes.mounts;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +39,21 @@ public class MountPathExtractor {
     final List<MountParameter> parameters;
     String path;
 
-    public MountPathExtractor() {
+    MountPathExtractor() {
         parameters = new ArrayList<>();
+    }
+
+    public MountPathExtractor(String path) {
+        this();
+        extractParametersFromPath(path);
+    }
+
+    public List<MountParameter> getParameters() {
+        return parameters;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     void extractParametersFromPath(String path){
