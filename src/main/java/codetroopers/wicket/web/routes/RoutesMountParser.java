@@ -21,6 +21,7 @@
 
 package codetroopers.wicket.web.routes;
 
+import codetroopers.wicket.web.routes.mapper.ParamCheckingPatternMapper;
 import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.protocol.http.WebApplication;
