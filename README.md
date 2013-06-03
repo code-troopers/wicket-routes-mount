@@ -11,8 +11,10 @@ Add the following Maven dependency (available on Maven Central)
     <dependency>
         <groupId>com.code-troopers</groupId>
         <artifactId>wicket-route-mount</artifactId>
-        <version>0.1</version>
+        <version>0.2</version>
     </dependency>
+    
+## Standard usage
 
 Then you will need to write your mounts in a `routes.conf` located at the root of your sources (typically `src/main/resources/routes.conf`)
  
@@ -30,6 +32,18 @@ To parse the file and mount pages, you will need to add the following code in yo
         RoutesMountParser.mount(this);
     }
 
+    
+## Regular expression parameter checking
+
+If you want you can use the built-in mecanism allowing to check your parameters using regular expressions. This way you can easily define only numerical parameters or restriction over special values. When you want to use this, just add a `:` followed by the regular expression at the end of your param like this : `${param:[0-0]+}`. Your `routes.conf` can look like the following :
+
+    # mountPoint            class                           roles
+    /user/${id:[0-9]+}      codetroopers.UserPage           
+
+## Package mounting
+If you want to mount all the pages in a package, you can put the packageName after the mounting point in your `routes.conf` file. When reading the file, all the pages in the package will be mounted under the specified mount point (the standard `PackageMapper` is used).
+
+
 # Bug tracker
 
 Have a bug? Please create an issue here on GitHub!
@@ -42,6 +56,8 @@ https://github.com/code-troopers/wicket-routes-mount/issues
 The implementation provided here is open for pull request or further integration into WicketStuff.
 
 Thanks to Cloudbees buildhive for providing a free Jenkins instance.
+
+Thanks to 55Minutes.com for providing the initial implementation of `ParamCheckingPatternMapper`.
 
 # Copyright and license
 

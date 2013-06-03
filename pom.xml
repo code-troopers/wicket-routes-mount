@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.code-troopers</groupId>
     <artifactId>wicket-routes-mount</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <name>wicket-routes-mount</name>
     <description>Provide a way to group mount paths into a central routes file (a la Play!/Rails...)</description>
     <packaging>jar</packaging>
